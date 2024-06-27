@@ -1,0 +1,22 @@
+<!-- views/new.ejs: For creating a new blog post. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create New Post</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Create New Blog Post</h1>
+    <form action="/posts" method="POST">
+      <input type="text" name="title" class="form-control" placeholder="Post Title" required>
+      <textarea name="content" class="form-control" placeholder="Post Content" required></textarea>
+      <input type="text" name="author" class="form-control" placeholder="Author" required>
+      <button type="submit">Create Post</button>
+    </form>
+  </div>
+</body>
+</html>

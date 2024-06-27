@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  h1 {
+    color: #333;
+  }
+  .container {
+    max-width: 800px;
+    margin: auto;
+  }
+  .post {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  .post h2 {
+    color: #007bff;
+  }
+  .post p {
+    color: #686565;
+  }
+  .actions {
+    margin-top: 20px;
+  }
+  .form-control {
+    margin-bottom: 10px;
+  }
+  
