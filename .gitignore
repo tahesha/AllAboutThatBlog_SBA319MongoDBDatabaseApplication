@@ -19,3 +19,5 @@ dist/
 
 # Ignore any other generated files or logs
 *.log
+
+public/index.html
