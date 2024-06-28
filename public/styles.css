@@ -1,9 +1,13 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
+    color: teal;
+    background-color: bisque;
   }
   h1 {
-    color: #333;
+    color: bisque;
+    background-color: teal;
+    text-align: center;
   }
   .container {
     max-width: 800px;
@@ -15,7 +19,7 @@ body {
     padding-bottom: 10px;
   }
   .post h2 {
-    color: #007bff;
+    color: #023d7c;
   }
   .post p {
     color: #686565;
@@ -26,4 +30,47 @@ body {
   .form-control {
     margin-bottom: 10px;
   }
+  .delete-button {
+    background-color: rgb(189, 7, 7);
+    color: whitesmoke;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
   
+  .edit-button {
+    background-color: goldenrod;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .btn {
+    background-color: teal;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  header img {
+    max-width: 100%; /* Ensures the image does not exceed its container */
+    height: auto; /* Ensures the image retains its aspect ratio */
+    display: block; /* Removes any default inline styles */
+    margin: 0 auto 20px; /* Centers the image horizontally and adds bottom margin */
+  }

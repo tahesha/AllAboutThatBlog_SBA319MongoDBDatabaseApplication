@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+
 
 // Load environment variables from .env file
 dotenv.config();
@@ -27,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Body parser middleware
 app.use(express.urlencoded({ extended: true }));
 
+// Method Override middleware
+app.use(methodOverride('_method'));
+
 // Load models
 const Post = require('./models/post');
 const User = require('./models/user'); // Assuming you have a User model
@@ -36,6 +41,28 @@ app.get('/', async (req, res) => {
   try {
     const posts = await Post.find().populate('author'); // Populate author field
     res.render('index', { posts });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// Route to handle search form
+// Route to handle search form
+app.get('/search', async (req, res) => {
+  let searchTerm = req.query.q || ''; // Ensure searchTerm is at least an empty string
+  searchTerm = searchTerm.toString(); // Convert searchTerm to string explicitly
+
+  try {
+    const searchResults = await Post.find({
+      $or: [
+        { title: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive search for title
+        { content: { $regex: searchTerm, $options: 'i' } } // Case-insensitive search for content
+      ]
+    });
+
+    // Render your search results view with searchResults
+    res.render('search', { results: searchResults });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -90,7 +117,7 @@ app.post('/posts', async (req, res) => {
   }
 });
 
-app.post('/posts/:id', async (req, res) => {
+/* app.put('/posts/:id', async (req, res) => {
   try {
     const { title, content, author } = req.body;
     const post = await Post.findByIdAndUpdate(
@@ -105,9 +132,34 @@ app.post('/posts/:id', async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
+}); */
+
+
+
+app.post('/posts/:id', async (req, res) => {
+  const postId = req.params.id;
+  const { title, content } = req.body;
+
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { title, content },
+      { new: true }
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.redirect(`/posts/${updatedPost._id}`);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
-app.post('/posts/:id/delete', async (req, res) => {
+
+
+app.delete('/posts/:id', async (req, res) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
     if (!post) {
